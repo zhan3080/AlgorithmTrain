@@ -121,4 +121,58 @@ public class ListNodeOperation {
         return head;
     }
 
+
+    //链表相交
+    //根据长度
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB){
+        ListNode a = headA;
+        ListNode b = headB;
+        int lenA = 0;
+        int lenB = 0;
+
+        while(a!=null){
+            lenA ++;
+            a = a.next;
+        }
+        while(b!=null){
+            lenB ++;
+            b = b.next;
+        }
+        int s = lenA - lenB;
+        if(lenA>lenB){
+            a = headA;
+            b = headB;
+        }else {
+            a = headB;
+            b = headA;
+            s = -s;
+        }
+
+        while(s-->0){
+            a = a.next;
+        }
+
+        while (a.val!=b.val){
+            a = a.next;
+            b = b.next;
+        }
+        return a;
+
+    }
+
+    //链表相交
+    //链表叠加，相交点之后的长度相同
+    // {1，2，3，4，5，6，NULL，9，5，6}
+    // {9，5，6，NULL，1，2，3，4，5，6}
+    public ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
+        ListNode a = headA;
+        ListNode b = headB;
+        //应该是a == b?，为了测试使用以下判断条件
+        while (a.val!=b.val){
+            a = a.next==null?headB:a.next;
+            b = b.next==null?headA:b.next;
+        }
+        return a;
+    }
+
 }
